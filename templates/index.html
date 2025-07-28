@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Flask MySQL App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Dashboard Principal</h1>
+        <p class="lead">Bienvenido a tu aplicación Flask con MySQL</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h4 class="card-title">{{ usuarios }}</h4>
+                <p class="card-text">Usuarios Registrados</p>
+                <a href="{{ url_for('main.usuarios') }}" class="btn btn-light">Ver Usuarios</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h4 class="card-title">{{ productos }}</h4>
+                <p class="card-text">Productos Disponibles</p>
+                <a href="{{ url_for('main.productos') }}" class="btn btn-light">Ver Productos</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h4 class="card-title">{{ pedidos }}</h4>
+                <p class="card-text">Pedidos Realizados</p>
+                <a href="{{ url_for('main.pedidos') }}" class="btn btn-light">Ver Pedidos</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

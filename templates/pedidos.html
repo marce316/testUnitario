@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Pedidos - Flask MySQL App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Lista de Pedidos</h2>
+        
+        {% if pedidos %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido, usuario, producto in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ pedido.cantidad }}</td>
+                    <td>${{ "%.2f"|format(pedido.precio_total) }}</td>
+                    <td>{{ pedido.estado }}</td>
+                    <td>{{ pedido.fecha_pedido.strftime('%d/%m/%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay pedidos registrados.</p>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+        <h3>Nuevo Pedido</h3>
+        <form method="POST" action="{{ url_for('main.nuevo_pedido') }}">
+            <div class="mb-3">
+                <label for="usuario_id" class="form-label">Usuario</label>
+                <select class="form-control" name="usuario_id" required>
+                    <option value="">Seleccionar usuario...</option>
+                    {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="producto_id" class="form-label">Producto</label>
+                <select class="form-control" name="producto_id" required>
+                    <option value="">Seleccionar producto...</option>
+                    {% for producto in productos %}
+                    <option value="{{ producto.id }}">{{ producto.nombre }} - ${{ "%.2f"|format(producto.precio) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" min="1" class="form-control" name="cantidad" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Crear Pedido</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

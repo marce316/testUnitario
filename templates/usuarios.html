@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios - Flask MySQL App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Lista de Usuarios</h2>
+        
+        {% if usuarios %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.telefono or 'N/A' }}</td>
+                    <td>{{ usuario.fecha_registro.strftime('%d/%m/%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay usuarios registrados.</p>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+        <h3>Nuevo Usuario</h3>
+        <form method="POST" action="{{ url_for('main.nuevo_usuario') }}">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" name="telefono">
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

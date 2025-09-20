@@ -1,7 +1,7 @@
 from flask import Flask # comentario
 from config import Config
 from models import db
-from routes.routes import main
+from routes.routes import main # otro comentario
 
 def create_app():
     app = Flask(__name__)

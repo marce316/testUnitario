@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask # comentario
 from config import Config
 from models import db
 from routes.routes import main
